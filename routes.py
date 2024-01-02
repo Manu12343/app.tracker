@@ -3,10 +3,11 @@ from flask import (
     render_template,
     redirect,
     flash,
+    Response,
     url_for,
     session
 )
-
+import cv2
 from datetime import timedelta
 from sqlalchemy.exc import (
     IntegrityError,
@@ -71,7 +72,25 @@ def login():
         title="Login",
         btn_action="Login"
         )
+#video feed
+@app.route('/video_feed')
+@login_required
+def video_feed():
+    def generate():
+        cap = cv2.VideoCapture(0)  # Change the file path if necessary
+        print("Camera Started")
+        while True:
+            ret, frame = cap.read()
+            if not ret:
+                break
+            
+            # Encode the frame into JPEG format
+            ret, buffer = cv2.imencode('.jpg', frame)
+            frame = buffer.tobytes()
+            yield (b'--frame\r\n'
+                   b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
+    return Response(generate(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 
 # Register route

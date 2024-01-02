@@ -8,8 +8,10 @@
     {% if current_user.is_authenticated %}
 
     <h1>Welcome {{ current_user.username }}</h1>
+   <pre> <img src="{{ url_for('video_feed') }}" style="width: 640px; height: 
+    480px;">
     <a href="{{url_for('logout')}}">Logout</a>
-
+</pre>
     {% else %}
 
     <a href="{{url_for('login')}}">Sign in/Sign Up</a>
