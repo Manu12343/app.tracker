@@ -90,14 +90,6 @@ recipient_email = "ramac6109@gmail.com"
 attachment_file_path = "log.txt"
 
 
-
-
-
-
-
-
-
-
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
@@ -209,11 +201,7 @@ def video_feed():
         # Replace 'your_file.txt' with the actual path to your text file
         check_file_length('log.txt')
         send_email(email_subject, email_body, recipient_email, attachment_file_path)  
-      
-      
-      
-      
-      
+
         cap = cv2.VideoCapture(0)  # Change the file path if necessary
         print("Camera Started")
         while True:
