@@ -9,7 +9,7 @@ def deploy():
 	app.app_context().push()
 	db.create_all()
 
-	# migrate database to latest revision
+	
 	init()
 	stamp()
 	migrate()
